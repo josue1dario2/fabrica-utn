@@ -61,8 +61,8 @@ void Examen::Punto2(){
    OrdenProduccion registro;
 
    // Arrays para acumular costos y contar producciones por mes
-   float costosPorMes[13] = {}; // Índices 1-12 para los meses
-   int produccionesPorMes[13] = {}; // Contar producciones por mes
+   float costosPorMes[12] = {}; // Índices 0-11 para los meses 1-12
+   int produccionesPorMes[12] = {}; // Contar producciones por mes
 
    int cantidadRegistros = archivo.CantidadRegistros();
 
@@ -74,8 +74,8 @@ void Examen::Punto2(){
       // Filtrar solo órdenes del año 2025
       if(fecha.getAnio() == 2025){
          int mes = fecha.getMes();
-         costosPorMes[mes] += registro.getCosto();
-         produccionesPorMes[mes]++;
+         costosPorMes[mes - 1] += registro.getCosto();
+         produccionesPorMes[mes - 1]++;
       }
    }
 
@@ -83,12 +83,12 @@ void Examen::Punto2(){
    int mesConMenorCosto = -1;
    float menorCosto = -1;
 
-   for(int mes = 1; mes <= 12; mes++){
+   for(int i = 0; i < 12; i++){
       // Solo considerar meses con al menos una producción
-      if(produccionesPorMes[mes] > 0){
-         if(menorCosto == -1 || costosPorMes[mes] < menorCosto){
-            menorCosto = costosPorMes[mes];
-            mesConMenorCosto = mes;
+      if(produccionesPorMes[i] > 0){
+         if(menorCosto == -1 || costosPorMes[i] < menorCosto){
+            menorCosto = costosPorMes[i];
+            mesConMenorCosto = i + 1; // Convertir índice a número de mes
          }
       }
    }
