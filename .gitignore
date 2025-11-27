@@ -1,0 +1,11 @@
+# Archivos objeto
+*.o
+
+# Ejecutables
+fabrica
+*.exe
+
+# Archivos de compilación
+*.out
+*.a
+*.so
