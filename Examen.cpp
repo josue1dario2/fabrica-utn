@@ -37,8 +37,14 @@ void Examen::Punto1(){
    }
 
    // Contar cuántos tipos de piezas distintas produjo cada máquina
-   cout << "Maquinas que produjeron mas de 35 tipos de piezas distintas:" << endl;
+   cout << endl;
+   cout << "========================================" << endl;
+   cout << "           PUNTO 1 - RESULTADOS         " << endl;
+   cout << "========================================" << endl;
+   cout << "Maquinas que produjeron MAS DE 35 tipos de piezas distintas:" << endl;
+   cout << "----------------------------------------" << endl;
 
+   int cantidadMaquinas = 0;
    for(int i = 0; i < 15; i++){
       int tiposDistintos = 0;
 
@@ -51,9 +57,16 @@ void Examen::Punto1(){
 
       // Si produjo más de 35 tipos distintos, mostrar el número de máquina
       if(tiposDistintos > 35){
-         cout << (i + 1) << endl; // Convertir índice a número de máquina
+         cout << "  >> Maquina #" << (i + 1) << " - Produjo " << tiposDistintos << " tipos diferentes" << endl;
+         cantidadMaquinas++;
       }
    }
+
+   if(cantidadMaquinas == 0){
+      cout << "  No se encontraron maquinas con mas de 35 tipos de piezas." << endl;
+   }
+   cout << "========================================" << endl;
+   cout << endl;
 }
 
 void Examen::Punto2(){
@@ -93,7 +106,25 @@ void Examen::Punto2(){
       }
    }
 
-   cout << "Mes de 2025 con menor costo de produccion: " << mesConMenorCosto << endl;
+   cout << "========================================" << endl;
+   cout << "           PUNTO 2 - RESULTADOS         " << endl;
+   cout << "========================================" << endl;
+   cout << "Mes de 2025 con MENOR costo de produccion:" << endl;
+   cout << "----------------------------------------" << endl;
+
+   if(mesConMenorCosto != -1){
+      string nombreMes[12] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                              "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+
+      cout << "  >> Mes: " << nombreMes[mesConMenorCosto - 1] << " (mes #" << mesConMenorCosto << ")" << endl;
+      cout << "  >> Costo total: $" << menorCosto << endl;
+      cout << "  >> Cantidad de ordenes: " << produccionesPorMes[mesConMenorCosto - 1] << endl;
+   } else {
+      cout << "  No se encontraron producciones en 2025." << endl;
+   }
+
+   cout << "========================================" << endl;
+   cout << endl;
 }
 
 void Examen::Punto3(){
@@ -104,6 +135,7 @@ void Examen::Punto3(){
 
    float maxMateriaPrimaPorPieza = -1;
    int ordenConMaxMateriaPrima = -1;
+   OrdenProduccion ordenMaxima;
 
    // Recorrer todas las órdenes de producción
    for(int i = 0; i < cantidadRegistros; i++){
@@ -120,9 +152,29 @@ void Examen::Punto3(){
          if(maxMateriaPrimaPorPieza == -1 || materiaPrimaPorPieza > maxMateriaPrimaPorPieza){
             maxMateriaPrimaPorPieza = materiaPrimaPorPieza;
             ordenConMaxMateriaPrima = registro.getIDProduccion();
+            ordenMaxima = registro;
          }
       }
    }
 
-   cout << "Numero de orden que uso mas materia prima por pieza: " << ordenConMaxMateriaPrima << endl;
+   cout << "========================================" << endl;
+   cout << "           PUNTO 3 - RESULTADOS         " << endl;
+   cout << "========================================" << endl;
+   cout << "Orden con MAYOR materia prima por pieza fabricada:" << endl;
+   cout << "----------------------------------------" << endl;
+
+   if(ordenConMaxMateriaPrima != -1){
+      cout << "  >> Numero de orden: #" << ordenConMaxMateriaPrima << endl;
+      cout << "  >> Maquina: #" << ordenMaxima.getIDMaquina() << endl;
+      cout << "  >> Tipo de pieza: #" << ordenMaxima.getIDTipoPieza() << endl;
+      cout << "  >> Cantidad fabricada: " << ordenMaxima.getCantidad() << " piezas" << endl;
+      cout << "  >> Materia prima total: " << ordenMaxima.getCantidadMateriaPrima() << endl;
+      cout << "  >> Materia prima por pieza: " << maxMateriaPrimaPorPieza << endl;
+      cout << "  >> Fecha: " << ordenMaxima.getFecha().toString() << endl;
+   } else {
+      cout << "  No se encontraron ordenes de produccion." << endl;
+   }
+
+   cout << "========================================" << endl;
+   cout << endl;
 }
