@@ -21,8 +21,8 @@ void Examen::Punto1(){
    OrdenProduccion registro;
 
    // Matriz para marcar qué tipos de piezas produjo cada máquina
-   // Filas: máquinas (1-15), Columnas: tipos de pieza (1-40)
-   bool piezasPorMaquina[16][41] = {}; // Inicializar en false
+   // Filas: máquinas 1-15 (índices 0-14), Columnas: tipos de pieza 1-40 (índices 0-39)
+   bool piezasPorMaquina[15][40] = {}; // Inicializar en false
 
    int cantidadRegistros = archivo.CantidadRegistros();
 
@@ -33,25 +33,25 @@ void Examen::Punto1(){
       int tipoPieza = registro.getIDTipoPieza();
 
       // Marcar que esta máquina produjo este tipo de pieza
-      piezasPorMaquina[maquina][tipoPieza] = true;
+      piezasPorMaquina[maquina - 1][tipoPieza - 1] = true;
    }
 
    // Contar cuántos tipos de piezas distintas produjo cada máquina
    cout << "Maquinas que produjeron mas de 35 tipos de piezas distintas:" << endl;
 
-   for(int maquina = 1; maquina <= 15; maquina++){
+   for(int i = 0; i < 15; i++){
       int tiposDistintos = 0;
 
       // Contar tipos de piezas distintas para esta máquina
-      for(int tipoPieza = 1; tipoPieza <= 40; tipoPieza++){
-         if(piezasPorMaquina[maquina][tipoPieza]){
+      for(int j = 0; j < 40; j++){
+         if(piezasPorMaquina[i][j]){
             tiposDistintos++;
          }
       }
 
       // Si produjo más de 35 tipos distintos, mostrar el número de máquina
       if(tiposDistintos > 35){
-         cout << maquina << endl;
+         cout << (i + 1) << endl; // Convertir índice a número de máquina
       }
    }
 }
